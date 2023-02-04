@@ -38,6 +38,8 @@ public class PlayerTransformation : MonoBehaviour
                 TransformToPotato();
                 break;
         }
+        playerAnimation.ChangeAnimatorController(transformation);
+        SlowDown();
     }
 
 
@@ -58,7 +60,7 @@ public class PlayerTransformation : MonoBehaviour
     {
         if (currentTransformation == Transformations.Standard) return;
         playerAnimation.spriteRenderer.color = Color.white;
-        player.maxJumpHeight = 1.8f;
+        player.maxJumpHeight = 3f;
         player.UpdatePhysics();
         player.learnDash = false;
         player.learnDoubleJump = false;
@@ -77,7 +79,7 @@ public class PlayerTransformation : MonoBehaviour
         player.learnDash = false;
         player.learnDoubleJump = true;
         player.learnWallJump = false;
-        player.maxJumpHeight = 1.8f;
+        player.maxJumpHeight = 3f;
         player.timeToJumpApex = .34f;
         player.maxFallVelocity = 20f;
         player.UpdatePhysics();
@@ -94,7 +96,7 @@ public class PlayerTransformation : MonoBehaviour
         player.learnDash = false;
         player.learnDoubleJump = false;
         player.learnWallJump = false;
-        player.maxJumpHeight = 1f;
+        player.maxJumpHeight = 2f;
         player.timeToJumpApex = .2f;
         player.maxFallVelocity = 100f;
         player.UpdatePhysics();
