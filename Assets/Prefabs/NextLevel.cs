@@ -9,6 +9,8 @@ public class NextLevel : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        SceneManager.LoadScene(nextScene);
+        if (collision.gameObject.TryGetComponent<Player>(out Player player))
+
+            SceneManager.LoadScene(nextScene);
     }
 }

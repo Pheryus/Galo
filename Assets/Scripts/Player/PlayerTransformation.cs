@@ -60,12 +60,12 @@ public class PlayerTransformation : MonoBehaviour
         if (currentTransformation == Transformations.Standard) return;
         playerAnimation.spriteRenderer.color = Color.white;
         player.maxJumpHeight = 3f;
-        player.UpdatePhysics();
         player.learnDash = false;
         player.learnDoubleJump = false;
         player.learnWallJump = false;
         player.timeToJumpApex = .34f;
         player.maxFallVelocity = 20f;
+        player.UpdatePhysics();
         currentTransformation = Transformations.Standard;
         playerAnimation.ChangeAnimatorController(currentTransformation);
     }

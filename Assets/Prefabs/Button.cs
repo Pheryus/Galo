@@ -20,6 +20,14 @@ public class Button : MonoBehaviour
                 {
                     Activate();
                 }
+                else
+                {
+                    Debug.Log("magnitude: " + player.GetVelocity().magnitude);
+                }
+            }
+            else
+            {
+                Debug.Log("não é batas");
             }
         }
     }
