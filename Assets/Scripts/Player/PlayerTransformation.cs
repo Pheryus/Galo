@@ -92,4 +92,12 @@ public class PlayerTransformation : MonoBehaviour
         player.UpdatePhysics();
         currentTransformation = Transformations.Potato;
     }
+
+    public void OnGrounded(Vector3 velocity)
+    {
+        if (velocity.y < -5.0f)
+        {
+            TransformToStandard();
+        }
+    }
 }
