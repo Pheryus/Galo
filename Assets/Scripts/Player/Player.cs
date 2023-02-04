@@ -336,6 +336,7 @@ public class Player : MonoBehaviour {
         else if (learnDoubleJump && canDoubleJump) {
             canDoubleJump = false;
             velocity.y = maxJumpVelocity * doubleJumpStrength;
+            GetComponent<PlayerTransformation>().OnDoubleJump();
             //playerAnimation.StartJump();
         }
 	}
