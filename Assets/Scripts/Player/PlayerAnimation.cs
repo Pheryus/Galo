@@ -10,14 +10,33 @@ public class PlayerAnimation : MonoBehaviour
 
     public SpriteRenderer spriteRenderer;
 
+    public RuntimeAnimatorController standardAnimator;
+
+    public AnimatorOverrideController carrotAnimator;
+
     enum AnimState { none, idle, run, startJump, apexJump, dash, falling, attacking, groundStun};
 
     AnimState state;
+
+
 
     private void Start() {
         state = AnimState.idle;
     }
 
+    public void ChangeAnimatorController(PlayerTransformation.Transformations transformations)
+    {
+        switch (transformations)
+        {
+            case PlayerTransformation.Transformations.Standard:
+                anim.runtimeAnimatorController = standardAnimator;
+                break;
+            case PlayerTransformation.Transformations.Carrot:
+                anim.runtimeAnimatorController = carrotAnimator;
+                break;
+
+        }
+    }
 
     public void StartDash() {
         state = AnimState.dash;
