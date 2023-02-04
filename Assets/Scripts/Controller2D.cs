@@ -140,6 +140,12 @@ public class Controller2D : RaycastController {
 						continue;
 					}
 				}
+				if (hit.collider.tag == "Platform" && hit.collider.gameObject.TryGetComponent<PlatformController>(out PlatformController platform))
+                {
+					platform.playerOverIt = true;
+				}
+
+				
 
 				moveAmount.y = (hit.distance - skinWidth) * directionY;
 				rayLength = hit.distance;

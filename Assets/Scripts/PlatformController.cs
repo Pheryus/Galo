@@ -11,6 +11,7 @@ public class PlatformController : RaycastController {
 
 	public float speed;
 	public bool cyclic;
+	public bool onlyMovesWhenPlayerIsOver;
 	public float waitTime;
 	[Range(0,2)]
 	public float easeAmount;
@@ -21,7 +22,9 @@ public class PlatformController : RaycastController {
 
 	List<PassengerMovement> passengerMovement;
 	Dictionary<Transform,Controller2D> passengerDictionary = new Dictionary<Transform, Controller2D>();
-	
+
+	public bool playerOverIt;
+
 	public override void Start () {
 		base.Start ();
 
@@ -48,12 +51,17 @@ public class PlatformController : RaycastController {
 		float a = easeAmount + 1;
 		return Mathf.Pow(x,a) / (Mathf.Pow(x,a) + Mathf.Pow(1-x,a));
 	}
-	
+
+
 	Vector3 CalculatePlatformMovement() {
 
 		if (Time.time < nextMoveTime) {
 			return Vector3.zero;
 		}
+		if (onlyMovesWhenPlayerIsOver && playerOverIt == false)
+        {
+			return Vector3.zero;
+        }
 
 		fromWaypointIndex %= globalWaypoints.Length;
 		int toWaypointIndex = (fromWaypointIndex + 1) % globalWaypoints.Length;
@@ -162,7 +170,12 @@ public class PlatformController : RaycastController {
 		}
 	}
 
-	struct PassengerMovement {
+    private void LateUpdate()
+    {
+		playerOverIt = false;
+    }
+
+    struct PassengerMovement {
 		public Transform transform;
 		public Vector3 velocity;
 		public bool standingOnPlatform;
