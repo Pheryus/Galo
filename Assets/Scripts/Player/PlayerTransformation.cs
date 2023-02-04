@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerTransformation : MonoBehaviour
 {
-    public enum Transformations { Standard, Carrot, Potato, beet };
+    public enum Transformations { Standard, Carrot, Potato, beet, galo };
 
     public Transformations currentTransformation;
 
@@ -14,6 +14,7 @@ public class PlayerTransformation : MonoBehaviour
 
     public int carrots;
     public int potatoes;
+    public int beets;
 
     void Start()
     {
@@ -38,8 +39,6 @@ public class PlayerTransformation : MonoBehaviour
                 TransformToPotato();
                 break;
         }
-        playerAnimation.ChangeAnimatorController(transformation);
-        SlowDown();
     }
 
 
@@ -68,6 +67,7 @@ public class PlayerTransformation : MonoBehaviour
         player.timeToJumpApex = .34f;
         player.maxFallVelocity = 20f;
         currentTransformation = Transformations.Standard;
+        playerAnimation.ChangeAnimatorController(currentTransformation);
     }
 
     public void TransformToCarrot()
@@ -76,7 +76,6 @@ public class PlayerTransformation : MonoBehaviour
         playerAnimation.spriteRenderer.color = Color.white;
         if (carrots <= 0) return;
         carrots--;
-        playerAnimation.spriteRenderer.color = new Color(1f, 0.33f, 0f);
         player.learnDash = false;
         player.learnDoubleJump = true;
         player.learnWallJump = false;
@@ -86,6 +85,8 @@ public class PlayerTransformation : MonoBehaviour
         player.UpdatePhysics();
         currentTransformation = Transformations.Carrot;
         SlowDown();
+        playerAnimation.ChangeAnimatorController(currentTransformation);
+
     }
 
     private void TransformToPotato()
@@ -103,6 +104,7 @@ public class PlayerTransformation : MonoBehaviour
         player.UpdatePhysics();
         currentTransformation = Transformations.Potato;
         SlowDown();
+        playerAnimation.ChangeAnimatorController(currentTransformation);
     }
 
     public void OnGrounded(Vector3 velocity)
@@ -110,6 +112,7 @@ public class PlayerTransformation : MonoBehaviour
         if (velocity.y < -5.0f)
         {
             TransformToStandard();
+
         }
     }
 }
