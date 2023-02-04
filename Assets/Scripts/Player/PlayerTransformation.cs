@@ -35,7 +35,7 @@ public class PlayerTransformation : MonoBehaviour
                 TransformToPotato();
                 break;
         }
-
+        playerAnimation.ChangeAnimatorController(transformation);
         SlowDown();
     }
 
