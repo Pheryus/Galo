@@ -382,6 +382,7 @@ public class Player : MonoBehaviour {
     public void EnterGroundCollision() {
         lastWallJump = WallJump.none;
         playerAnimation.OnGround();
+        GetComponent<PlayerTransformation>().OnGrounded(velocity);
         /*
         if (endJumpY - transform.position.y >= maxHighJumpWithoutStun) {
             playerAnimation.FallStun();

@@ -177,7 +177,7 @@ public class PlatformController : RaycastController {
 	}
 
 	void OnDrawGizmos() {
-		if (localWaypoints != null) {
+		if (localWaypoints != null && localWaypoints.Length > 0 && globalWaypoints != null && globalWaypoints.Length > 0) {
 			Gizmos.color = Color.red;
 			float size = .3f;
 
