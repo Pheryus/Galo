@@ -70,7 +70,7 @@ public class PlayerTransformation : MonoBehaviour
     public void TransformToCarrot()
     {
         if (currentTransformation == Transformations.Carrot) return;
-        playerAnimation.spriteRenderer.color = new Color(1f, 0.33f, 0f);
+        playerAnimation.spriteRenderer.color = Color.white;
         player.learnDash = false;
         player.learnDoubleJump = true;
         player.learnWallJump = false;
