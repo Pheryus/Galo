@@ -73,6 +73,7 @@ public class PlayerTransformation : MonoBehaviour
     public void TransformToCarrot()
     {
         if (currentTransformation == Transformations.Carrot) return;
+        playerAnimation.spriteRenderer.color = Color.white;
         if (carrots <= 0) return;
         carrots--;
         playerAnimation.spriteRenderer.color = new Color(1f, 0.33f, 0f);

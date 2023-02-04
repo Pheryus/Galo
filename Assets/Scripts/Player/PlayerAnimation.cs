@@ -109,7 +109,7 @@ public class PlayerAnimation : MonoBehaviour
             }
         }
 
-        if (state == AnimState.startJump && player.GetVelocity().y < .1f) {
+        if (state == AnimState.startJump && player.GetVelocity().y < .2f) {
             JumpApex();
         }
 
