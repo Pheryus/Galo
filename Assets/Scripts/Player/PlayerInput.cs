@@ -46,5 +46,15 @@ public class PlayerInput : MonoBehaviour {
 		{
             UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
 		}
+		if (directionalInput.y > 0 && player.InVine)
+        {
+			player.Climbing = true;
+        }
+		if (player.Climbing)
+        {
+			player.ClimbUp(directionalInput.y * 10.0f * Time.deltaTime);
+			player.ClimbSide(directionalInput.x * 2f * Time.deltaTime);
+        }
+
 	}
 }

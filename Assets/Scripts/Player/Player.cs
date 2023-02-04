@@ -135,7 +135,16 @@ public class Player : MonoBehaviour {
         minJumpVelocity = 0;//Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
     }
 
-	void Update() {
+    public bool Climbing;
+    public bool InVine;
+
+    void Update() {
+
+        if (Climbing)
+        {
+            velocity = Vector3.zero;
+            return;
+        }
 
         CalculateVelocity();
         CalculateDashVelocity();
@@ -151,6 +160,16 @@ public class Player : MonoBehaviour {
 
     public int TotalDashDuration() {
         return framesToAccelDash + framesToDeccelDash + framesToConstantDashDuration;
+    }
+
+    public void ClimbUp(float climb)
+    {
+        transform.position += Vector3.up * climb;
+    }
+
+    public void ClimbSide(float climb)
+    {
+        transform.position += Vector3.right * climb;
     }
 
     void UpdateLeaveGroundFrameWindow() {
@@ -312,7 +331,11 @@ public class Player : MonoBehaviour {
 	public void OnJumpInputDown() {
         if (!CanAct())
             return;
-
+        if (Climbing)
+        {
+            Climbing = false;
+            actualFrameLeaveGround = framesToJumpAfterLeaveGround;
+        }
         if (wallColliding && learnWallJump) {
             lastWallJumpDirection = -wallDirX;
             actualFrameLastWallJump = frameWindowChangeWallJump;
