@@ -12,6 +12,9 @@ public class PlayerTransformation : MonoBehaviour
     Player player;
     PlayerAnimation playerAnimation;
 
+    public int carrots;
+    public int potatoes;
+
     void Start()
     {
         player = GetComponent<Player>();
@@ -35,7 +38,6 @@ public class PlayerTransformation : MonoBehaviour
                 TransformToPotato();
                 break;
         }
-        SlowDown();
     }
 
 
@@ -69,6 +71,8 @@ public class PlayerTransformation : MonoBehaviour
     public void TransformToCarrot()
     {
         if (currentTransformation == Transformations.Carrot) return;
+        if (carrots <= 0) return;
+        carrots--;
         playerAnimation.spriteRenderer.color = new Color(1f, 0.33f, 0f);
         player.learnDash = false;
         player.learnDoubleJump = true;
@@ -78,10 +82,14 @@ public class PlayerTransformation : MonoBehaviour
         player.maxFallVelocity = 20f;
         player.UpdatePhysics();
         currentTransformation = Transformations.Carrot;
+        SlowDown();
     }
+
     private void TransformToPotato()
     {
         if (currentTransformation == Transformations.Potato) return;
+        if (potatoes <= 0) return;
+        potatoes--;
         playerAnimation.spriteRenderer.color = Color.yellow;
         player.learnDash = false;
         player.learnDoubleJump = false;
@@ -91,6 +99,7 @@ public class PlayerTransformation : MonoBehaviour
         player.maxFallVelocity = 100f;
         player.UpdatePhysics();
         currentTransformation = Transformations.Potato;
+        SlowDown();
     }
 
     public void OnGrounded(Vector3 velocity)
