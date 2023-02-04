@@ -106,7 +106,15 @@ public class PlayerTransformation : MonoBehaviour
 
     public void OnGrounded(Vector3 velocity)
     {
-        if (velocity.y < -5.0f)
+        if (currentTransformation == Transformations.Potato && velocity.y < -5.0f)
+        {
+            TransformToStandard();
+        }
+    }
+
+    public void OnDoubleJump()
+    {
+        if (currentTransformation == Transformations.Carrot)
         {
             TransformToStandard();
         }
