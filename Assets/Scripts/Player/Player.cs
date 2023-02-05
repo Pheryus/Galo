@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent (typeof (Controller2D))]
+[RequireComponent(typeof(Controller2D))]
 public class Player : MonoBehaviour {
 
     [Header("Player Upgrades")]
@@ -15,8 +15,8 @@ public class Player : MonoBehaviour {
     [Header("Jump")]
     [Space(10)]
     public float maxJumpHeight = 4;
-	public float minJumpHeight = 1;
-	public float timeToJumpApex = .4f;
+    public float minJumpHeight = 1;
+    public float timeToJumpApex = .4f;
 
     public float maxHighJumpWithoutStun;
 
@@ -24,7 +24,7 @@ public class Player : MonoBehaviour {
     float maxJumpVelocity;
     float minJumpVelocity;
     public float maxFallVelocity;
-    [Range(0,1)]
+    [Range(0, 1)]
     public float doubleJumpStrength;
 
 
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour {
     [Header("Decceleration")]
     [Range(0, .5f)]
     public float accelerationTimeAirborne = .2f;
-    [Range (0, .5f)]
+    [Range(0, .5f)]
     public float accelerationTimeGrounded = .05f;
     [Range(0, .5f)]
     public float accelerationTImeGroundedAttacking = .05f;
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour {
     #region WallJump
     [Space(10)]
     [Header("Wall Jump")]
-    
+
     public float wallSlideSpeedMax = 3;
     public float wallStickTime = .25f;
     public Vector2 wallJumpClimb;
@@ -65,13 +65,13 @@ public class Player : MonoBehaviour {
     float timeToWallUnstick;
     int wallDirX;
 
-    enum WallJump { none, slow, normal, fast};
+    enum WallJump { none, slow, normal, fast };
 
     WallJump lastWallJump;
 
     int lastWallJumpDirection;
     int actualFrameLastWallJump;
-    
+
     #endregion
 
     #region Dash
@@ -112,7 +112,7 @@ public class Player : MonoBehaviour {
     Controller2D controller;
 
     [HideInInspector]
-	public Vector2 directionalInputs;
+    public Vector2 directionalInputs;
 
     int playerDirection = 1;
 
@@ -120,14 +120,14 @@ public class Player : MonoBehaviour {
     PlayerGhost playerGhost;
     Vector2 previousVelocity;
 
-	void Start() {
+    void Start() {
         playerAnimation = GetComponent<PlayerAnimation>();
-		controller = GetComponent<Controller2D> ();
+        controller = GetComponent<Controller2D>();
         playerGhost = GetComponent<PlayerGhost>();
-		gravity = -(2 * maxJumpHeight) / Mathf.Pow (timeToJumpApex, 2);
-		maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
-		minJumpVelocity = Mathf.Sqrt (2 * Mathf.Abs (gravity) * minJumpHeight);
-	}
+        gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+        maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
+        minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
+    }
 
     public void UpdatePhysics() {
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
@@ -148,14 +148,18 @@ public class Player : MonoBehaviour {
 
         CalculateVelocity();
         CalculateDashVelocity();
-	    HandleWallSliding ();
+        HandleWallSliding();
         ResetDash();
-		controller.Move (velocity * Time.deltaTime, directionalInputs);
+        controller.Move(velocity * Time.deltaTime, directionalInputs);
 
-		if (controller.collisions.above || controller.collisions.below) velocity.y = 0;
-		
+        if (controller.collisions.above || controller.collisions.below) velocity.y = 0;
+
         UpdateLeaveGroundFrameWindow();
         previousVelocity = velocity;
+    }
+    public void ResetVelocity()
+    {
+        velocity = Vector3.zero;
     }
 
     public int TotalDashDuration() {
